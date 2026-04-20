@@ -61,7 +61,6 @@ export function Training() {
         <div>
           <h2 className="text-lg font-black text-slate-800 uppercase tracking-tighter leading-none">Entrenamiento del Modelo</h2>
           <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1">
-            {isTraining ? `Época ${currentEpoch}/${maxEpochs} en curso...` : 'Sistema listo'}
           </p>
         </div>
         

@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router";
-import { Layout } from "./components/layout/Layout";
-import { Dashboard } from "./components/pages/Dashboard";
-import { Result } from "./components/pages/Result";
-import { Training } from "./components/pages/Training";
+import { Layout } from "./components/layout/Diseno";
+import { Dashboard } from "./components/pages/PanelDeControl";
+import { Result } from "./components/pages/Resultado";
+import { Training } from "./components/pages/Entrenamiento";
 
 export const router = createBrowserRouter([
   {

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { Camera, Upload, Play, X, RotateCcw } from 'lucide-react';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
+import { ImageWithFallback } from '../figma/ImagenConRespaldo';
 
 export function Dashboard() {
   const navigate = useNavigate();
@@ -120,24 +120,27 @@ export function Dashboard() {
         
         {/* Card Resultado */}
         <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm">
-          <h3 className="text-xs font-black uppercase text-indigo-600 tracking-widest mb-5 flex items-center gap-2">
-            <span className="w-2 h-2 bg-indigo-600 rounded-full animate-pulse"></span>
+          {/* Título cambiado a #006400 */}
+          <h3 className="text-xs font-black uppercase text-[#006400] tracking-widest mb-5 flex items-center gap-2">
+            <span className="w-2 h-2 bg-[#006400] rounded-full animate-pulse"></span>
             Estado del Análisis
           </h3>
           <div className="space-y-5">
             <div>
               <label className="text-[10px] font-bold uppercase text-slate-400 tracking-widest block mb-2">Categoría</label>
               <div className="h-10 px-4 bg-slate-50 border border-slate-100 rounded-lg flex items-center text-sm font-bold text-slate-700 font-mono">
-                {isProcessing ? <span className="animate-pulse text-indigo-500">Analizando...</span> : imagePreview ? "Plástico" : "--"}
+                {isProcessing ? <span className="animate-pulse text-[#006400]">Analizando...</span> : imagePreview ? "Plástico" : "--"}
               </div>
             </div>
             <div>
               <label className="text-[10px] font-bold uppercase text-slate-400 tracking-widest block mb-2">Confianza</label>
               <div className="flex items-center gap-3">
                 <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-indigo-500 rounded-full transition-all duration-1000" style={{ width: imagePreview ? '94.3%' : '0%' }}></div>
+                  {/* Barra de progreso cambiada a #006400 para combinar */}
+                  <div className="h-full bg-[#006400] rounded-full transition-all duration-1000" style={{ width: imagePreview ? '94.3%' : '0%' }}></div>
                 </div>
-                <span className="text-sm font-bold text-indigo-600">{imagePreview ? "94.3%" : "0%"}</span>
+                {/* Número de porcentaje cambiado a #006400 */}
+                <span className="text-sm font-bold text-[#006400]">{imagePreview ? "94.3%" : "0%"}</span>
               </div>
             </div>
             <div className="pt-3 flex justify-between items-center border-t border-slate-100">
@@ -153,16 +156,14 @@ export function Dashboard() {
             
             {/* BOTÓN IZQUIERDO: Dinámico */}
             {stream ? (
-              /* Caso A: Cámara prendida -> Acción: Tomar Foto */
               <button
                 onClick={handleCapture}
-                className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50/50 transition-all group"
+                className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-white border border-slate-200 rounded-xl hover:border-green-300 hover:bg-green-50/50 transition-all group"
               >
-                <Camera className="w-5 h-5 text-indigo-500 group-hover:scale-110 transition-transform" />
+                <Camera className="w-5 h-5 text-[#006400] group-hover:scale-110 transition-transform" />
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-700 text-center">Tomar Foto</span>
               </button>
             ) : imagePreview ? (
-              /* Caso B: Foto ya tomada -> Acción: Cancelar (Volver un paso atrás) */
               <button
                 onClick={() => setImagePreview(null)}
                 className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-red-50 border border-red-200 rounded-xl hover:bg-red-100 transition-all group shadow-sm"
@@ -171,12 +172,11 @@ export function Dashboard() {
                 <span className="text-[10px] font-bold uppercase tracking-wider text-red-600 text-center">Cancelar</span>
               </button>
             ) : (
-              /* Caso C: Estado inicial -> Acción: Usar Cámara */
               <button
                 onClick={handleCapture}
-                className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50/50 transition-all group shadow-sm"
+                className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-white border border-slate-200 rounded-xl hover:border-green-300 hover:bg-green-50/50 transition-all group shadow-sm"
               >
-                <Camera className="w-5 h-5 text-indigo-500 group-hover:scale-110 transition-transform" />
+                <Camera className="w-5 h-5 text-[#006400] group-hover:scale-110 transition-transform" />
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-700 text-center">Usar Cámara</span>
               </button>
             )}
@@ -193,16 +193,16 @@ export function Dashboard() {
             ) : imagePreview ? (
               <button
                 onClick={handleRetake}
-                className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-white border border-indigo-200 rounded-xl hover:bg-indigo-50 transition-all group shadow-sm"
+                className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-white border border-green-200 rounded-xl hover:bg-green-50 transition-all group shadow-sm"
               >
-                <RotateCcw className="w-5 h-5 text-indigo-500 group-hover:-rotate-45 transition-transform" />
-                <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-700 text-center">Retomar</span>
+                <RotateCcw className="w-5 h-5 text-[#006400] group-hover:-rotate-45 transition-transform" />
+                <span className="text-[10px] font-bold uppercase tracking-wider text-[#006400] text-center">Retomar</span>
               </button>
             ) : (
               <>
                 <button
                   onClick={handleUpload}
-                  className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-white border border-slate-200 rounded-xl hover:border-indigo-300 hover:bg-indigo-50/50 transition-all group shadow-sm"
+                  className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-white border border-slate-200 rounded-xl hover:border-green-300 hover:bg-green-50/50 transition-all group shadow-sm"
                 >
                   <Upload className="w-5 h-5 text-slate-400 group-hover:-translate-y-1 transition-transform" />
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 text-center">Cargar Foto</span>
@@ -218,7 +218,7 @@ export function Dashboard() {
             className={`flex items-center justify-center gap-3 w-full py-4 rounded-xl transition-all border-b-4 font-bold text-xs uppercase tracking-[0.2em]
               ${!imagePreview || isProcessing 
                 ? 'bg-slate-100 border-slate-300 text-slate-400 cursor-not-allowed' 
-                : 'bg-indigo-600 border-indigo-800 text-white hover:bg-indigo-700 shadow-lg shadow-indigo-100 active:translate-y-0.5 active:border-b-2'}`}
+                : 'bg-[#006400] border-[#004d00] text-white hover:bg-[#007500] shadow-lg shadow-green-100 active:translate-y-0.5 active:border-b-2'}`}
           >
             {isProcessing ? (
               <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>

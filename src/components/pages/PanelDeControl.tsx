@@ -10,6 +10,7 @@ export function Dashboard() {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [imageSource, setImageSource] = useState<'camera' | 'upload' | null>(null);
 
   useEffect(() => {
     if (stream && videoRef.current) {
@@ -42,6 +43,7 @@ export function Dashboard() {
       if (ctx) {
         ctx.drawImage(videoRef.current, 0, 0);
         setImagePreview(canvas.toDataURL('image/png'));
+        setImageSource('camera');
         handleCancel();
       }
     }
@@ -62,6 +64,7 @@ export function Dashboard() {
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string);
+        setImageSource('upload');
         handleCancel();
       };
       reader.readAsDataURL(file);
@@ -165,7 +168,10 @@ export function Dashboard() {
               </button>
             ) : imagePreview ? (
               <button
-                onClick={() => setImagePreview(null)}
+                onClick={() => {
+                  setImagePreview(null);
+                  setImageSource(null);
+                }}
                 className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-red-50 border border-red-200 rounded-xl hover:bg-red-100 transition-all group shadow-sm"
               >
                 <X className="w-5 h-5 text-red-600 group-hover:rotate-90 transition-transform" />
@@ -191,13 +197,23 @@ export function Dashboard() {
                 <span className="text-[10px] font-bold uppercase tracking-wider text-red-600">Cancelar</span>
               </button>
             ) : imagePreview ? (
-              <button
-                onClick={handleRetake}
-                className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-white border border-green-200 rounded-xl hover:bg-green-50 transition-all group shadow-sm"
-              >
-                <RotateCcw className="w-5 h-5 text-[#006400] group-hover:-rotate-45 transition-transform" />
-                <span className="text-[10px] font-bold uppercase tracking-wider text-[#006400] text-center">Retomar</span>
-              </button>
+              imageSource === 'upload' ? (
+                <button
+                  onClick={handleUpload}
+                  className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-white border border-green-200 rounded-xl hover:bg-green-50 transition-all group shadow-sm"
+                >
+                  <Upload className="w-5 h-5 text-[#006400] group-hover:-translate-y-1 transition-transform" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#006400] text-center">Seleccionar Otra Imagen</span>
+                </button>
+              ) : (
+                <button
+                  onClick={handleRetake}
+                  className="flex flex-col items-center justify-center gap-2 py-4 px-4 bg-white border border-green-200 rounded-xl hover:bg-green-50 transition-all group shadow-sm"
+                >
+                  <RotateCcw className="w-5 h-5 text-[#006400] group-hover:-rotate-45 transition-transform" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#006400] text-center">Retomar</span>
+                </button>
+              )
             ) : (
               <>
                 <button

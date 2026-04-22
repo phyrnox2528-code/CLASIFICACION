@@ -11,6 +11,7 @@ export function Dashboard() {
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [imageSource, setImageSource] = useState<'camera' | 'upload' | null>(null);
+  const [inputKey, setInputKey] = useState(0);
 
   useEffect(() => {
     if (stream && videoRef.current) {
@@ -56,7 +57,10 @@ export function Dashboard() {
     }
   };
 
-  const handleUpload = () => fileInputRef.current?.click();
+  const handleUpload = () => {
+    setInputKey(prev => prev + 1);
+    setTimeout(() => fileInputRef.current?.click(), 0);
+  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -66,6 +70,9 @@ export function Dashboard() {
         setImagePreview(reader.result as string);
         setImageSource('upload');
         handleCancel();
+        if (fileInputRef.current) {
+          fileInputRef.current.value = '';
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -223,10 +230,11 @@ export function Dashboard() {
                   <Upload className="w-5 h-5 text-slate-400 group-hover:-translate-y-1 transition-transform" />
                   <span className="text-[10px] font-bold uppercase tracking-wider text-slate-600 text-center">Cargar Foto</span>
                 </button>
-                <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
               </>
             )}
           </div>
+
+          <input key={inputKey} ref={fileInputRef} type="file" accept="image/*" onChange={handleFileChange} className="hidden" />
 
           <button
             onClick={handleClassify}

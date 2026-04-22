@@ -53,14 +53,12 @@ export function Training() {
   ];
 
   return (
-    // Reducimos el espacio vertical total con space-y-3
     <div className="max-w-7xl mx-auto w-full space-y-3 pt-0 px-2">
-      
-      {/* Control de Entrenamiento - Diseño más horizontal para ahorrar altura */}
       <div className="bg-white border border-slate-200 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-2">
         <div>
           <h2 className="text-lg font-black text-slate-800 uppercase tracking-tighter leading-none">Entrenamiento del Modelo</h2>
           <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1">
+            {isTraining ? `Época ${currentEpoch}/${maxEpochs} en curso...` : 'Sistema listo'}
           </p>
         </div>
         
@@ -75,7 +73,6 @@ export function Training() {
         </button>
       </div>
 
-      {/* Grid de Métricas - Iconos medianos y texto claro */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {stats.map((stat, i) => (
           <div key={i} className="bg-white border border-slate-200 rounded-2xl p-3 shadow-sm">
@@ -92,10 +89,7 @@ export function Training() {
         ))}
       </div>
 
-      {/* Contenedor Principal - Ajustado para altura de pantalla */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
-        
-        {/* Gráfica - Altura optimizada h-60 (240px) */}
         <div className="lg:col-span-2 bg-white border border-slate-200 rounded-3xl p-5 shadow-sm">
           <h3 className="text-[10px] font-black uppercase text-slate-800 tracking-widest mb-4 flex items-center gap-2">
             <TrendingUp className="w-4 h-4 text-[#006400]" />
@@ -115,7 +109,6 @@ export function Training() {
           </div>
         </div>
 
-        {/* Distribución - Compacta pero con barras claras */}
         <div className="bg-white border border-slate-200 rounded-3xl p-5 shadow-sm flex flex-col justify-between">
           <h3 className="text-[10px] font-black uppercase text-slate-800 tracking-widest mb-4 flex items-center gap-2">
             <Database className="w-4 h-4 text-[#006400]" />
@@ -124,8 +117,8 @@ export function Training() {
           <div className="space-y-3.5">
             {[
               { label: 'Plástico', val: 1250, color: 'bg-[#006400]' },
-              { label: 'Vidrio', val: 980, color: 'bg-emerald-600' },
-              { label: 'Papel', val: 1100, color: 'bg-green-700' },
+              { label: 'Vidrio', val: 980, color: 'bg-[#006400]/80' },
+              { label: 'Papel', val: 1100, color: 'bg-[#006400]/60' },
               { label: 'Metal', val: 750, color: 'bg-slate-400' }
             ].map((item, i) => (
               <div key={i}>
@@ -149,7 +142,6 @@ export function Training() {
         </div>
       </div>
 
-      {/* Barra de progreso minimalista pegada al borde inferior si está activo */}
       {isTraining && (
         <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
           <div className="h-full bg-[#006400] transition-all duration-300" style={{ width: `${progress}%` }}></div>
